@@ -1,5 +1,3 @@
-export function padStart(content: number | string, paddingLength = 0) {
-  return content
-    .toString()
-    .replace(/\d+/g, (m) => m.padStart(paddingLength, "0"));
+export function padDigits(input: number | string, maxLength = 0): string {
+  return input.toString().replace(/\d+/g, (m) => m.padStart(maxLength, "0"));
 }

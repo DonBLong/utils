@@ -1,20 +1,37 @@
-import { extname } from "jsr:@std/path@1.1.2/extname";
+import { extname } from "jsr:@std/path@^1.1.2/extname";
 
 export type FileExtension = `.${string}`;
 
-export function filterFileTypes(dir: string, fileExtensions?: FileExtension[]) {
-  return Deno.readDirSync(dir).reduce((valid: string[], file) => {
-    if (file.isFile) {
-      const fileExt = extname(file.name) as FileExtension;
-      if (isValidExt(fileExt, fileExtensions)) valid.push(file.name);
-    }
+export type DirEntryTypes = (FileExtension | "directory")[];
+
+export async function readDirWithTypes(
+  path: string,
+  types?: DirEntryTypes
+): Promise<Deno.DirEntry[]> {
+  const valid = [];
+  for await (const dirEntry of Deno.readDir(path)) {
+    if (isValidDirEntry(dirEntry, types)) valid.push(dirEntry);
+  }
+  return valid;
+}
+
+export function readDirSyncWithTypes(
+  path: string,
+  types?: DirEntryTypes
+): Deno.DirEntry[] {
+  return Deno.readDirSync(path).reduce<Deno.DirEntry[]>((valid, dirEntry) => {
+    if (isValidDirEntry(dirEntry, types)) valid.push(dirEntry);
     return valid;
   }, []);
 }
 
-export function isValidExt(
-  fileExt: FileExtension,
-  extensionList?: FileExtension[]
-) {
-  return extensionList?.includes(fileExt);
+export function isValidDirEntry(
+  dirEntry: Deno.DirEntry,
+  types?: DirEntryTypes
+): boolean {
+  if (dirEntry.isFile) {
+    const fileExt = extname(dirEntry.name) as FileExtension;
+    return types?.includes(fileExt) ?? false;
+  } else if (dirEntry.isDirectory) return types?.includes("directory") ?? false;
+  return false;
 }

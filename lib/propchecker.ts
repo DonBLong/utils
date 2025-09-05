@@ -1,7 +1,7 @@
 export interface PrimitiveTypes {
   bigint: bigint;
   boolean: boolean;
-  function: (...args: any[]) => any;
+  function: (...args: unknown[]) => unknown;
   number: number;
   object: object;
   string: string;
@@ -9,18 +9,16 @@ export interface PrimitiveTypes {
   undefined: undefined;
   null: null;
 }
-export type Constructor = abstract new (...args: any) => any;
-export type Class<C> = C extends abstract new (...args: any) => infer T
-  ? T
+// deno-lint-ignore no-explicit-any
+export type Constructor = abstract new (...args: any[]) => any;
+// deno-lint-ignore no-explicit-any
+export type Class<C> = C extends abstract new (...args: any[]) => infer T ? T
   : never;
 export type Key<O> = O extends Constructor ? keyof Class<O> : keyof O;
 export type Type = keyof PrimitiveTypes | Constructor | object;
-export type Value<T> = T extends keyof PrimitiveTypes
-  ? PrimitiveTypes[T]
-  : T extends Constructor
-  ? Class<T>
-  : T extends object
-  ? T
+export type Value<T> = T extends keyof PrimitiveTypes ? PrimitiveTypes[T]
+  : T extends Constructor ? Class<T>
+  : T extends object ? T
   : never;
 
 export interface PropertyParams<O> {
@@ -28,8 +26,8 @@ export interface PropertyParams<O> {
   key: Key<O>;
   type: Type | Type[];
   value: unknown;
-  caller: Function;
-  callerClass: Function;
+  caller: (...args: unknown[]) => unknown;
+  callerClass: (...args: unknown[]) => unknown;
 }
 export interface ValueFound {
   value: unknown;
@@ -54,11 +52,11 @@ export class Property<O> {
     };
   }
   set objectType(
-    vlaue: Partial<PropertyParams<O>>["objectType"] | string | undefined
+    value: Partial<PropertyParams<O>>["objectType"] | string | undefined,
   ) {
-    this.#objectType = this.#typeToString(vlaue);
+    this.#objectType = this.#typeToString(value);
   }
-  get objectType() {
+  get objectType(): string | undefined {
     return this.#objectType;
   }
   set key(value: Partial<PropertyParams<O>["key"]> | string | undefined) {
@@ -68,12 +66,11 @@ export class Property<O> {
     return this.#key;
   }
   set type(value: Partial<PropertyParams<O>>["type"] | string | undefined) {
-    this.#type =
-      value instanceof Array
-        ? value.map((v) => this.#typeToString(v)).join(" | ")
-        : this.#typeToString(value);
+    this.#type = value instanceof Array
+      ? value.map((v) => this.#typeToString(v)).join(" | ")
+      : this.#typeToString(value);
   }
-  get type() {
+  get type(): string | undefined {
     return this.#type;
   }
   set valueFound(value: PropertyParams<O>["value"]) {
@@ -90,16 +87,15 @@ export class Property<O> {
     value:
       | Pick<Partial<PropertyParams<O>>, "caller" | "callerClass">
       | string
-      | undefined
+      | undefined,
   ) {
-    this.#caller =
-      typeof value === "string"
-        ? value
-        : typeof value?.callerClass === "function"
-        ? `${value?.callerClass.name}.${value?.caller?.name}`
-        : value?.caller?.name;
+    this.#caller = typeof value === "string"
+      ? value
+      : typeof value?.callerClass === "function"
+      ? `${value?.callerClass.name}.${value?.caller?.name}`
+      : value?.caller?.name;
   }
-  get caller() {
+  get caller(): string | undefined {
     return this.#caller;
   }
   #typeToString<T>(type: T): string {
@@ -124,12 +120,11 @@ export class PropertyTypeError<O> extends TypeError {
   }
   set property(value: Partial<PropertyParams<O>> | Property<O> | undefined) {
     this.#property = value instanceof Property ? value : new Property(value);
-    this.message = `Property '${this.#property.key}' in type '${
-      this.#property.objectType
-    }' must be of type '${this.#property.type}'`;
+    this.message =
+      `Property '${this.#property.key}' in type '${this.#property.objectType}' must be of type '${this.#property.type}'`;
     this.valueFound = this.#property.valueFound;
   }
-  get property() {
+  get property(): Property<O> | undefined {
     return this.#property;
   }
 }
@@ -142,13 +137,14 @@ export class PropertyRequiredTypeError<O> extends TypeError {
   }
   set property(value: Partial<PropertyParams<O>> | Property<O> | undefined) {
     this.#property = value instanceof Property ? value : new Property(value);
-    this.message = `Property '${this.#property.key}' in type '${
-      this.#property.objectType
-    }' is '${String(
-      this.#property.valueFound?.value
-    )}' but is required in method '${this.#property.caller}'`;
+    this.message =
+      `Property '${this.#property.key}' in type '${this.#property.objectType}' is '${
+        String(
+          this.#property.valueFound?.value,
+        )
+      }' but is required in method '${this.#property.caller}'`;
   }
-  get property() {
+  get property(): Property<O> | undefined {
     return this.#property;
   }
 }
@@ -160,10 +156,10 @@ export function isNonNullable<O, P>(
     key: PropertyParams<O>["key"];
     caller?: PropertyParams<O>["caller"];
     callerClass?: PropertyParams<O>["callerClass"];
-  }
+  },
 ): value is NonNullable<P> {
   if (value === undefined || value === null) {
-    if (throwError)
+    if (throwError) {
       throw new PropertyRequiredTypeError({
         objectType: throwError.objectType,
         key: throwError.key,
@@ -171,6 +167,7 @@ export function isNonNullable<O, P>(
         caller: throwError.caller,
         callerClass: throwError.callerClass,
       });
+    }
     return false;
   }
   return true;
@@ -179,23 +176,32 @@ export function isNonNullable<O, P>(
 export function isOfType<O, T extends Type>(
   value: unknown,
   types: T | T[],
-  objectType: PropertyParams<O>["objectType"],
-  key: PropertyParams<O>["key"]
+  throwError?: {
+    objectType: PropertyParams<O>["objectType"];
+    key: PropertyParams<O>["key"];
+  },
 ): value is Value<T> {
   function isValid(type: T) {
     return typeof type === "string"
+      // deno-lint-ignore valid-typeof
       ? typeof value === type
       : typeof type === "function"
       ? value?.constructor.name === type.name
+      : typeof type === "object"
+      ? JSON.stringify(value) === JSON.stringify(type)
       : value === null || value === undefined;
   }
   const typesArray = types instanceof Array ? types : [types];
-  if (!typesArray.some(isValid))
-    throw new PropertyTypeError({
-      objectType: objectType,
-      key: key,
-      type: types,
-      value: value,
-    });
+  if (!typesArray.some(isValid)) {
+    if (throwError) {
+      throw new PropertyTypeError({
+        objectType: throwError.objectType,
+        key: throwError.key,
+        type: types,
+        value: value,
+      });
+    }
+    return false;
+  }
   return true;
 }
