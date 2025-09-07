@@ -18,9 +18,9 @@ Deno.test("matchCharsUnique()", () => {
 
 // matchSubstrings()
 Deno.test("matchSubstrings()", () => {
-  assertEquals(matchSubstrings("aaabbbcccddd", "eeecccfffaaa"), [
+  assertEquals(matchSubstrings("aaa bbb ccc ddd", "eee ccc fff aaa"), [
     "aaa",
-    "ccc",
+    " ccc ",
   ]);
 });
 

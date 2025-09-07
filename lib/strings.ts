@@ -75,11 +75,8 @@ export function matchSubstrings(first: string, second: string): string[] {
           } else match = char;
         }
       }
-      console.log(match);
-      console.log(matchArray);
-
-      if (index === first.length - 1) matchArray.push(match);
     }
+    if (index === first.length - 1) matchArray.push(match);
     return match;
   }, "");
   return matchArray;
