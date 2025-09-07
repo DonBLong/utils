@@ -1,4 +1,39 @@
 /**
+ * Uses a combination of `JSON.stringifiy` and the `StringConstructor` `Function`
+ * to convert a JavaScript value of any type (including `bigint`, `symbol`, `function` and `undefined`)
+ * into a JavaScript Object Notaion (JSON) `string`.
+ * @param input The input to be converted.
+ * @returns A JSON string of the {@link input}.
+ *
+ * @example Usage
+ * ```ts
+ * import { stringifyAll } from "@donblong/utils/strings";
+ *
+ * const obj = {
+ * a: 100000000000000000000n,
+ * b: true,
+ * c: function func() {
+ *    return "foo";
+ * },
+ * d: 20.300,
+ * e: { id: 4 },
+ * f: "bar",
+ * g: Symbol("foobar"),
+ * h: undefined,
+ * };
+ *
+ * console.log(stringifyAll(obj));
+ * // {"a":"1000000000000000000000","b":"true","c":"function func() {\n    return \"foo\";\n  }","d":"20.3","e":{"id":"4"},"f":"bar","g":"Symbol(foobar)","h":"undefined"}
+ * ```
+ */
+export function stringifyAll<T>(input: T): string {
+  return JSON.stringify(
+    input,
+    (_, value) => typeof value === "object" ? value : String(value),
+  );
+}
+
+/**
  * Returns all characters in the {@link first} `string`
  * that are present in the {@link second} `string`.
  * @param first The first `string` in the comparison.
@@ -63,13 +98,15 @@ export function matchSubstrings(first: string, second: string): string[] {
   const matchArray: string[] = [];
   [...first].reduce<string>((match, char, index) => {
     if (second.includes(char)) {
-      if (first.includes(match.concat(char))) {
-        if (second.includes(match.concat(char))) {
+      const nextMatch = match.concat(char);
+      if (first.includes(nextMatch)) {
+        if (second.includes(nextMatch)) {
           match = match.concat(char);
         } else {
           if (match.length > 1) matchArray.push(match);
-          if (second.includes(match.slice(1).concat(char))) {
-            match = match.slice(1).concat(char);
+          const nextMatch = match.slice(1).concat(char);
+          if (second.includes(nextMatch)) {
+            match = nextMatch;
           } else match = char;
         }
       }

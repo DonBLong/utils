@@ -1,7 +1,7 @@
 /**
- * Pads a `number` or digit characters found in a `string` with a leading `"0"`.
+ * Pads a `number`, a `bigint` or digit characters found in a `string` with a leading `"0"`.
  * Repeated until the number of digits of the padded number reaches the {@link maxLength}.
- * @param input The `number` or the `string` containg numbers to be padded.
+ * @param input The `number`, the `bigint` or the `string` containg numbers to be padded.
  * @param maxLength The length of the number found once it has been padded. Defaults to `0`.
  * If this parameter's value is smaller than the number of digits in the number found, the number found will not be padded.
  * @returns A new `string` with all numbers in it padded according to the {@link maxLength}.
@@ -21,7 +21,7 @@
  * ```
  */
 export function toPadded(
-  input: number | string,
+  input: number | bigint | string,
   maxLength: number = 0,
 ): string {
   return input.toString().replace(
