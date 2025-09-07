@@ -1,3 +1,7 @@
+/**
+ * Represents a type-map mapping each name of the JavaScript's primitive types (including "null") as key
+ * to a type compatible with what the type's name represent.
+ */
 export interface PrimitiveTypes {
   bigint: bigint;
   boolean: boolean;
@@ -9,38 +13,123 @@ export interface PrimitiveTypes {
   undefined: undefined;
   null: null;
 }
+
+/**
+ * Represents a `constructor` `Function`.
+ */
 // deno-lint-ignore no-explicit-any
 export type Constructor = abstract new (...args: any[]) => any;
+
+/**
+ * Obtain the type of a `class`, where {@link C} must extend a {@link Constructor}.
+ */
 // deno-lint-ignore no-explicit-any
 export type Class<C> = C extends abstract new (...args: any[]) => infer T ? T
   : never;
+
+/**
+ * Obtain the keys of an `object` or a `class`.
+ */
 export type Key<O> = O extends Constructor ? keyof Class<O> : keyof O;
+
+/**
+ * Represents the value a type selector.
+ */
 export type Type = keyof PrimitiveTypes | Constructor | object;
+
+/**
+ * Obtain the type of a value as a type selector. See {@link Type}.
+ */
 export type Value<T> = T extends keyof PrimitiveTypes ? PrimitiveTypes[T]
   : T extends Constructor ? Class<T>
   : T extends object ? T
   : never;
 
+/**
+ * Represents the `object` parameter of the `constructor`
+ * of the {@link Property} `class`.
+ */
 export interface PropertyParams<O> {
+  /**
+   * The type of the `object` that owns the {@link Property}.
+   * - Despite the name, this property will accept the `object`
+   *   itself as its own type.
+   */
   objectType: O;
+  /**
+   * The identifier of the {@link Property}.
+   */
   key: Key<O>;
+  /**
+   * The type (or the list of types) that the {@link Property} accepts.
+   */
   type: Type | Type[];
+  /**
+   * The actual value that is being assigned to the {@link Property}.
+   */
   value: unknown;
+  /**
+   * The `function` that is trying to access the {@link Property}.
+   */
   caller: (...args: unknown[]) => unknown;
+  /**
+   * The `class` to which the {@link caller} belongs.
+   */
   callerClass: (...args: unknown[]) => unknown;
 }
+
+/**
+ * Represents and `object` that stores some information
+ * about the value that is being assigned to the {@link Property}.
+ */
 export interface ValueFound {
+  /**
+   * The actual value that is being assigned to the {@link Property}.
+   */
   value: unknown;
+  /**
+   * The name of the type of the value that is being assigned to the {@link Property}.
+   */
   type: keyof PrimitiveTypes;
+  /**
+   * The name of the `constructor` `Function` of the value.
+   */
   constructor: string | undefined;
 }
 
+/**
+ * Constructs an `object` that stores some information about
+ * the property that is being type-guarded.
+ */
 export class Property<O> {
+  /**
+   * The name of the type of the `object` that owns the {@link Property}
+   */
   #objectType?: string;
+  /**
+   * The identifier of the {@link Property} as `string`.
+   */
   #key?: string;
+  /**
+   * The name the type that the {@link Property} accepts.
+   * - If the {@link Property} accepts more than one type,
+   *   the types' are separated by a `" | "`.
+   */
   #type?: string;
+  /**
+   * An `object` that stores some information
+   * about the value that is being assigned to the {@link Property}.
+   */
   #valueFound?: ValueFound;
+  /**
+   * A template literal storing the name of the `function` that
+   * is trying to access the {@link  Property}, alongside the name of the `class`
+   * to which this `function` belongs, in the form of `${className}.${functionName}`.
+   */
   #caller?: string;
+  /**
+   * @param params An `object` used to pass information about the {@link Property}.
+   */
   constructor(params?: Partial<PropertyParams<O>>) {
     this.objectType = params?.objectType;
     this.key = params?.key;
@@ -98,6 +187,11 @@ export class Property<O> {
   get caller(): string | undefined {
     return this.#caller;
   }
+  /**
+   * Extract a `string` name from a type.
+   * @param type The type from which to extract a `string` name.
+   * @returns A `string` name representing the input {@link type}.
+   */
   #typeToString<T>(type: T): string {
     return typeof type === "string"
       ? type
