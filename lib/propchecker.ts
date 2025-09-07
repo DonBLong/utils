@@ -187,8 +187,9 @@ export class Property<O> {
   get caller(): string | undefined {
     return this.#caller;
   }
+
   /**
-   * Extract a `string` name from a type.
+   * Extracts a `string` name from a type.
    * @param type The type from which to extract a `string` name.
    * @returns A `string` name representing the input {@link type}.
    */
@@ -205,9 +206,24 @@ export class Property<O> {
   }
 }
 
+/**
+ * Constructs a `TypeError` `object` that indicates that
+ * a type-incompatible value is being assigned to a property.
+ */
 export class PropertyTypeError<O> extends TypeError {
+  /**
+   * A {@link Property} `object` that stores information about the property
+   * to which the type-incompatible value is being assigned.
+   */
   #property?: Property<O>;
+  /**
+   * A {@link ValueFound} `object` that stores information about
+   * the type-incompatible value that is being assigned to the property.
+   */
   valueFound?: Property<O>["valueFound"];
+  /**
+   * @param property An `object` used to pass information about the {@link Property}.
+   */
   constructor(property?: Partial<PropertyParams<O>>) {
     super();
     this.property = property;
@@ -223,8 +239,19 @@ export class PropertyTypeError<O> extends TypeError {
   }
 }
 
+/**
+ * Constructs a `TypeError` `object` that indicates that
+ * a required property was not assigned a non-nullable value.
+ */
 export class PropertyRequiredTypeError<O> extends TypeError {
+  /**
+   * A {@link Property} `object` that stores information about the required property
+   * that was not assigned a non-nullable value.
+   */
   #property?: Property<O>;
+  /**
+   * @param property An `object` used to pass information about the {@link Property}.
+   */
   constructor(property?: Partial<PropertyParams<O>>) {
     super();
     this.property = property;
@@ -243,6 +270,15 @@ export class PropertyRequiredTypeError<O> extends TypeError {
   }
 }
 
+/**
+ * Checks the non-nullability of a value, and optionally throws an error if the value is nullable.
+ * @param value The value being checked.
+ * @param throwError An `object` used to pass information about
+ * the {@link Property} whose {@link value} is being checked to the {@link PropertyRequiredTypeError} `constructor`.
+ * - Assigning a value to this parameter makes this `function` throw an error
+ *   if the non-nullability check results in `false` instead of returning `false`.
+ * @returns `false` if the {@link value} is `null` or `undefined`, and `true` otherwise.
+ */
 export function isNonNullable<O, P>(
   value: P,
   throwError?: {
@@ -267,6 +303,15 @@ export function isNonNullable<O, P>(
   return true;
 }
 
+/**
+ * @param value The value being checked.
+ * @param types The single or multiple types, that are considered valid for the {@link value}.
+ * @param throwError An `object` used to pass information about
+ * the {@link Property} whose {@link value} is being checked to the {@link PropertyTypeError} `constructor`.
+ * - Assigning a value to this parameter makes this `function` throw an error
+ *   if the {@link value} is not of a valid type instead of returning `false`.
+ * @returns `false` if the {@link types} list does not include the {@link value}'s type, and `true` otherwise.
+ */
 export function isOfType<O, T extends Type>(
   value: unknown,
   types: T | T[],
