@@ -13,5 +13,8 @@
   },
   "publish": {
     "exclude": ["test"]
+  },
+  "tasks": {
+    "test": "deno test -R=tests/fs/dir"
   }
 }

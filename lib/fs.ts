@@ -8,6 +8,7 @@ export type FileExtension = `.${string}`;
 /**
  * Uses `Deno.readDir` to read a directory
  * and optionally filters its entries using the given {@link types}.
+ * - Requires `allow-read` permission.
  * @param path The relative or full path to the directory.
  * @param types A list of file-types for filtering the returned entries.
  * @returns A promise that resolves to an array of filtered `Deno.DirEntry` objects.
@@ -40,6 +41,7 @@ export async function readDirWithTypes(
 /**
  * Uses `Deno.readDirSync` to synchronously read a directory
  * and optionally filters its entries using the given {@link types}.
+ * - Requires `allow-read` permission.
  * @param path The relative or full path to the directory.
  * @param types A list of file-types for filtering the returned entries.
  * @returns An array of filtered `Deno.DirEntry` objects.

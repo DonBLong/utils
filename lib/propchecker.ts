@@ -278,6 +278,23 @@ export class PropertyRequiredTypeError<O> extends TypeError {
  * - Assigning a value to this parameter makes this `function` throw an error
  *   if the non-nullability check results in `false` instead of returning `false`.
  * @returns `false` if the {@link value} is `null` or `undefined`, and `true` otherwise.
+ *
+ * @example Usage
+ * ```ts
+ * import { isNonNullable } from "@donblong/utils/propchecker";
+ *
+ * const obj = { prop1: 0, prop2: null, prop3: undefined };
+ *
+ * console.log(isNonNullable(obj.prop1)); // true
+ * console.log(isNonNullable(obj.prop2)); // false
+ * console.log(isNonNullable(obj.prop3)); // false
+ *
+ * // with throwError
+ * function func() {
+ *   isNonNullable(obj.prop2, {objectType: obj, key: "prop2", caller: func});
+ * }
+ * func(); // Throws PropertyRequiredTypeError
+ * ```
  */
 export function isNonNullable<O, P>(
   value: P,
@@ -311,6 +328,21 @@ export function isNonNullable<O, P>(
  * - Assigning a value to this parameter makes this `function` throw an error
  *   if the {@link value} is not of a valid type instead of returning `false`.
  * @returns `false` if the {@link types} list does not include the {@link value}'s type, and `true` otherwise.
+ *
+ * @example Usage
+ * ```ts
+ * import { isOfType } from "@donblong/utils/propchecker";
+ *
+ * const obj = { prop1: "1", prop2: 2 };
+ *
+ * console.log(isOfType(obj.prop1, "string")); // true
+ * console.log(isOfType(obj.prop2, "string")); // false
+ * console.log(isOfType(obj.prop2, ["string", "number"])); // true
+ *
+ * // with throwError
+ * isOfType(obj.prop1, ["number", "bigint"], { objectType: obj, key: "prop1" });
+ * // Throws PropertyTypeError
+ * ```
  */
 export function isOfType<O, T extends Type>(
   value: unknown,
