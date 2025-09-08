@@ -32,10 +32,10 @@ export function sort<T, S>(
   input: Iterable<T>,
   sortBy?: (element: T) => S,
 ): T[] {
-  const inputStrings = [...input].map((e) => stringifyAll(sortBy?.(e) ?? e));
+  const maxLength = findMaxDigitSequence(stringifyAll(input))?.length;
   return [...input].toSorted((p, c) => {
-    const [previous, current] = [p, c].map((_, index) =>
-      toPadded(inputStrings[index], findMaxDigitSequence(inputStrings)?.length)
+    const [previous, current] = [p, c].map((e) =>
+      toPadded(stringifyAll(sortBy?.(e) ?? e), maxLength)
     );
     return previous > current ? 1 : -1;
   });
@@ -81,6 +81,30 @@ export function findMaxDigitSequence(
  * to generate a `string` or `RegExp` object of the user's choice to be used on behalf of the {@link second}-iterable's element during the matching.
  * @returns A `Map` object that maps each element of the {@link first} iterable as key to its closest match in the {@link second} iterable as value.
  * If an element of the {@link first} iterable has no-match in the {@link second} iterable, its value will be `undefined`.
+ *
+ * @example Usage
+ * ```ts
+ * import { match } from "@donblong/utils/arrays";
+ *
+ * const first = ["abbbc", "baaac", "acccb"];
+ * const second = ["a", "b", "c", "cccb"];
+ *
+ * console.log(match(first, second));
+ * // Map(3) { "abbbc" => "b", "baaac" => "a", "acccb" => "cccb" }
+ *
+ * // using matchBys
+ * const firstObjects = [{ firstProp: "abbbc" }, { firstProp: "baaac" }];
+ * const secondObjects = [{ secondProp: "a" }, { secondProp: "b" }];
+ *
+ * console.log(
+ * match(
+ *   firstObjects,
+ *   secondObjects,
+ *   (first) => first.firstProp,
+ *   (second) => second.secondProp,
+ * ));
+ * //  Map(2) {{ firstProp: "abbbc" } => { secondProp: "b" }, { firstProp: "baaac" } => { secondProp: "a" }}
+ * ```
  */
 export function match<First, Second>(
   first: Iterable<First>,
