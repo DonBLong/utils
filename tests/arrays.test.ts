@@ -52,14 +52,18 @@ Deno.test("match() - string iterables (no matchBys)", () => {
 Deno.test("match() - object iterables (with matchBys)", () => {
   assertEquals(
     match(
-      [{ firstProp: "abbbc" }, { firstProp: "baaac" }],
-      [{ secondProp: "a" }, { secondProp: "b" }],
-      (first) => first.firstProp,
-      (second) => second.secondProp,
+      {
+        iterable: [{ inputProp: "abbbc" }, { inputProp: "baaac" }],
+        callback: (input) => input.inputProp,
+      },
+      {
+        iterable: [{ candidateProp: "a" }, { candidateProp: "b" }],
+        callback: (candidate) => candidate.candidateProp,
+      },
     ),
     new Map([
-      [{ firstProp: "abbbc" }, { secondProp: "b" }],
-      [{ firstProp: "baaac" }, { secondProp: "a" }],
+      [{ inputProp: "abbbc" }, { candidateProp: "b" }],
+      [{ inputProp: "baaac" }, { candidateProp: "a" }],
     ]),
   );
 });
