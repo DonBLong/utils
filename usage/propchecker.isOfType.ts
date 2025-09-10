@@ -1,4 +1,4 @@
-import { isOfType } from "@donblong/utils/propchecker";
+import { isOfType } from "@donb/utils/propchecker/is-of-type";
 
 const obj = { prop1: "1", prop2: 2 };
 

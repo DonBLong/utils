@@ -1,4 +1,4 @@
-import { readDirSyncWithTypes } from "@donblong/utils/fs";
+import { readDirSyncWithTypes } from "@donb/utils/fs/read-dir-sync-with-types";
 import { extname } from "jsr:@std/path/extname";
 
 const dirEntries = readDirSyncWithTypes("/", [".ts", ".js"]);

@@ -1,4 +1,4 @@
-import { toPadded } from "@donblong/utils/numbers";
+import { toPadded } from "@donb/utils/numbers/to-padded";
 
 const num1 = 2;
 console.log(toPadded(num1, 2)); // "02"

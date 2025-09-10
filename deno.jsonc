@@ -1,0 +1,55 @@
+{
+  "name": "@donb/utils",
+  "version": "0.0.0",
+  "license": "MIT",
+  "exports": {
+    // default
+    ".": "./lib/mod.ts",
+    // arrays
+    "./arrays": "./lib/arrays/mod.ts",
+    "./arrays/best-match": "./lib/arrays/BestMatch.ts",
+    "./arrays/find-string-best-match": "./lib/arrays/findStringBestMatch.ts",
+    "./arrays/find-max-digit-sequence": "./lib/arrays/findMaxDigitSequence.ts",
+    "./arrays/match": "./lib/arrays/match.ts",
+    "./arrays/sort": "./lib/arrays/sort.ts",
+    // fs
+    "./fs": "./lib/fs/mod.ts",
+    "./fs/file-extension": "./lib/fs/FileExtension.ts",
+    "./fs/is-valid-dir-entry": "./lib/fs/isValidDirEntry.ts",
+    "./fs/read-dir-sync-with-types": "./lib/fs/readDirSyncWithTypes.ts",
+    "./fs/read-dir-with-types": "./lib/fs/readDirWithTypes.ts",
+    // numbers
+    "./numbers": "./lib/numbers/mod.ts",
+    "./numbers/to-padded": "./lib/numbers/toPadded.ts",
+    // propchecker
+    "./propchecker": "./lib/propchecker/mod.ts",
+    "./propchecker/is-non-nullable": "./lib/propchecker/isNonNullable.ts",
+    "./propchecker/is-of-type": "./lib/propchecker/isOfType.ts",
+    "./propchecker/property": "./lib/propchecker/Property.ts",
+    "./propchecker/property-params": "./lib/propchecker/PropertyParams.ts",
+    "./propchecker/property-required-type-error": "./lib/propchecker/PropertyRequiredTypeError.ts",
+    "./propchecker/property-type-error": "./lib/propchecker/PropertyTypeError.ts",
+    "./propchecker/value-found": "./lib/propchecker/ValueFound.ts",
+    // strings
+    "./strings": "./lib/strings/mod.ts",
+    "./strings/match-chars": "./lib/strings/matchChars.ts",
+    "./strings/match-chars-unique": "./lib/strings/matchCharsUnique.ts",
+    "./strings/match-substrings": "./lib/strings/matchSubstrings.ts",
+    "./strings/stringify-all": "./lib/strings/stringifyAll.ts",
+    // types
+    "./types": "./lib/types/mod.ts",
+    "./types/class": "./lib/types/Class.ts",
+    "./types/constructor": "./lib/types/Constructor.ts",
+    "./types/iterables-with-callbacks": "./lib/types/IterablesWithCallbacks.ts",
+    "./types/key": "./lib/types/Key.ts",
+    "./types/primitive-types": "./lib/types/PrimitiveTypes.ts",
+    "./types/type": "./lib/types/Type.ts",
+    "./types/value": "./lib/types/Value.ts"
+  },
+  "publish": {
+    "exclude": ["tests", "coverage", "docs", "usage"]
+  },
+  "tasks": {
+    "test": "deno test -R=tests/fs/dir"
+  }
+}

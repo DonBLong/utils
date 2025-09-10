@@ -1,22 +1,22 @@
 import { assertEquals } from "jsr:@std/assert@1.0.14/equals";
 import {
-  findBestMatch,
   findMaxDigitSequence,
+  findStringBestMatch,
   match,
   sort,
-} from "../lib/arrays.ts";
+} from "@donb/utils/arrays";
 
-// findBestMatch()
-Deno.test("findBestMatch() - string candidates (no matchBy)", () => {
-  assertEquals(findBestMatch("foobarfoobarfoo", ["foo", "bar"]), {
+// findStringBestMatch()
+Deno.test("findStringBestMatch() - string candidates (no matchBy)", () => {
+  assertEquals(findStringBestMatch("foobarfoobarfoo", ["foo", "bar"]), {
     match: "foo",
     matchingScore: 9,
   });
 });
 
-Deno.test("findBestMatch() - object candidates (with matchBy)", () => {
+Deno.test("findStringBestMatch() - object candidates (with matchBy)", () => {
   assertEquals(
-    findBestMatch(
+    findStringBestMatch(
       "foobarfoobarfoo",
       [{ name: "foo" }, { name: "bar" }],
       (candidate) => candidate.name,

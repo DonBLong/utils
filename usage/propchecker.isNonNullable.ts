@@ -1,4 +1,4 @@
-import { isNonNullable } from "@donblong/utils/propchecker";
+import { isNonNullable } from "@donb/utils/propchecker/is-non-nullable";
 
 const obj = { prop1: 0, prop2: null, prop3: undefined };
 

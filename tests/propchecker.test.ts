@@ -4,7 +4,7 @@ import {
   isOfType,
   PropertyRequiredTypeError,
   PropertyTypeError,
-} from "../lib/propchecker.ts";
+} from "@donb/utils/propchecker";
 
 // isNonNullable
 Deno.test("isNonNullable() - boolean", () => {

@@ -1,4 +1,4 @@
-import { stringifyAll } from "@donblong/utils/strings";
+import { stringifyAll } from "@donb/utils/strings/stringify-all";
 
 const obj = {
   a: 100000000000000000000n,

@@ -3,7 +3,7 @@ import {
   isValidDirEntry,
   readDirSyncWithTypes,
   readDirWithTypes,
-} from "../../lib/fs.ts";
+} from "@donb/utils/fs";
 
 // isValidDirEntry()
 Deno.test("isValidDirEntry()", () => {

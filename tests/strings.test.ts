@@ -4,7 +4,7 @@ import {
   matchCharsUnique,
   matchSubstrings,
   stringifyAll,
-} from "../lib/strings.ts";
+} from "@donb/utils/strings";
 
 // matchChars()
 Deno.test("matchChars()", () => {

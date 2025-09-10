@@ -1,4 +1,4 @@
-import { isValidDirEntry } from "@donblong/utils/fs";
+import { isValidDirEntry } from "@donb/utils/fs/is-valid-dir-entry";
 
 const dirEntry: Deno.DirEntry = {
   isDirectory: false,

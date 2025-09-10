@@ -1,4 +1,4 @@
-import { matchCharsUnique } from "@donblong/utils/strings";
+import { matchCharsUnique } from "@donb/utils/strings/match-chars-unique";
 
 const first = "aabbccddeeff";
 const second = "gghhbbiieejj";
