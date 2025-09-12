@@ -47,7 +47,7 @@
     "./types/value": "./lib/types/Value.ts"
   },
   "publish": {
-    "exclude": ["tests", "coverage", "docs", "usage"]
+    "include": ["lib"]
   },
   "tasks": {
     "test": "deno test --coverage -R=tests/fs/dir"
