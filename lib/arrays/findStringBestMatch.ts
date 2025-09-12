@@ -49,14 +49,12 @@ import type { IterableAndCallbackTuple } from "../types/IterablesWithCallbacks.t
  */
 export function findStringBestMatch<Candidate>(
   input: string,
-  ...[candidates, matchBy]: IterableAndCallbackTuple<Candidate, string>
+  ...[candidates, matchBy]: IterableAndCallbackTuple<Candidate, string | RegExp>
 ): BestMatch<Candidate> {
   return [...candidates].reduce<BestMatch<Candidate>>(
     (bestMatch, candidate) => {
       const matcher = matchBy?.(candidate) ??
-        (typeof candidate === "string" || candidate instanceof RegExp
-          ? candidate
-          : String(candidate));
+        (candidate instanceof RegExp ? candidate : String(candidate));
       const [long, short] =
         typeof matcher === "string" && matcher.length > input.length
           ? [matcher, input]
@@ -73,5 +71,3 @@ export function findStringBestMatch<Candidate>(
     { matchingScore: 0 },
   );
 }
-
-findStringBestMatch("dsfdsf", ["dsfdsf"]);

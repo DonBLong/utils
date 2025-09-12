@@ -48,13 +48,12 @@ export function isOfType<ObjectType, AcceptedType extends Type>(
 ): value is Value<AcceptedType> {
   function isValid(type: AcceptedType) {
     return typeof type === "string"
-      // deno-lint-ignore valid-typeof
-      ? typeof value === type
+      ? typeof value === type || value === null && type === "null"
       : typeof type === "function"
       ? value?.constructor.name === type.name
       : typeof type === "object"
       ? JSON.stringify(value) === JSON.stringify(type)
-      : value === null || value === undefined;
+      : false;
   }
   const typesArray = types instanceof Array ? types : [types];
   if (!typesArray.some(isValid)) {

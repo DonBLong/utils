@@ -31,7 +31,8 @@ export function readDirSyncWithTypes(
   types?: (FileExtension | "directory")[],
 ): Deno.DirEntry[] {
   return Deno.readDirSync(path).reduce<Deno.DirEntry[]>((valid, dirEntry) => {
-    if (isValidDirEntry(dirEntry, types)) valid.push(dirEntry);
+    if (types?.length && !isValidDirEntry(dirEntry, types)) return valid;
+    valid.push(dirEntry);
     return valid;
   }, []);
 }

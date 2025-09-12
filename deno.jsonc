@@ -50,6 +50,6 @@
     "exclude": ["tests", "coverage", "docs", "usage"]
   },
   "tasks": {
-    "test": "deno test -R=tests/fs/dir"
+    "test": "deno test --coverage -R=tests/fs/dir"
   }
 }

@@ -22,6 +22,9 @@ Deno.test("matchSubstrings()", () => {
     "aaa",
     " ccc ",
   ]);
+  assertEquals(matchSubstrings("aacdf", "bacde"), [
+    "acd",
+  ]);
 });
 
 // stringifyAll()

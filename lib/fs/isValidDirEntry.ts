@@ -25,11 +25,9 @@ import type { FileExtension } from "./FileExtension.ts";
  */
 export function isValidDirEntry(
   dirEntry: Deno.DirEntry,
-  types?: (FileExtension | "directory")[],
+  types: (FileExtension | "directory")[],
 ): boolean {
-  if (dirEntry.isFile) {
-    const fileExt = extname(dirEntry.name) as FileExtension;
-    return types?.includes(fileExt) ?? false;
-  } else if (dirEntry.isDirectory) return types?.includes("directory") ?? false;
-  return false;
+  return (dirEntry.isDirectory && types.includes("directory")) ||
+    (dirEntry.isFile &&
+      types.includes(extname(dirEntry.name) as FileExtension));
 }

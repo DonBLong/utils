@@ -79,14 +79,15 @@ export class Property<O> {
   set caller(
     value:
       | Pick<Partial<PropertyParams<O>>, "caller" | "callerClass">
-      | string
       | undefined,
   ) {
-    this.#caller = typeof value === "string"
-      ? value
-      : typeof value?.callerClass === "function"
-      ? `${value?.callerClass.name}.${value?.caller?.name}`
+    const caller = typeof value?.caller === "string"
+      ? value.caller
       : value?.caller?.name;
+    const callerClass = typeof value?.callerClass === "string"
+      ? value.callerClass
+      : value?.callerClass?.name;
+    this.#caller = `${callerClass ? `${callerClass}.` : ""}${caller}`;
   }
   get caller(): string | undefined {
     return this.#caller;

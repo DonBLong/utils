@@ -1,4 +1,6 @@
+import type { Constructor } from "../types/Constructor.ts";
 import type { Key } from "../types/Key.ts";
+import type { PrimitiveTypes } from "../types/PrimitiveTypes.ts";
 import type { Type } from "../types/Type.ts";
 
 /**
@@ -27,9 +29,9 @@ export interface PropertyParams<O> {
   /**
    * The `function` that is trying to access the {@linkcode Property}.
    */
-  caller: (...args: unknown[]) => unknown;
+  caller: PrimitiveTypes["function"] | string;
   /**
    * The `class` to which the {@linkcode caller} belongs.
    */
-  callerClass: (...args: unknown[]) => unknown;
+  callerClass: Constructor | string;
 }

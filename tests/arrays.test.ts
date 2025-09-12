@@ -7,11 +7,31 @@ import {
 } from "@donb/utils/arrays";
 
 // findStringBestMatch()
-Deno.test("findStringBestMatch() - string candidates (no matchBy)", () => {
+Deno.test("findStringBestMatch() - string candidates (no matchBy) - input lengthier than candidate", () => {
   assertEquals(findStringBestMatch("foobarfoobarfoo", ["foo", "bar"]), {
     match: "foo",
     matchingScore: 9,
   });
+});
+
+Deno.test("findStringBestMatch() - string candidates (no matchBy) - input shorter than candidate", () => {
+  assertEquals(
+    findStringBestMatch("foo", ["foobarfoobarfoo", "barfoobarfoobar"]),
+    {
+      match: "foobarfoobarfoo",
+      matchingScore: 9,
+    },
+  );
+});
+
+Deno.test("findStringBestMatch() - RegExp candidates (no matchBy)", () => {
+  assertEquals(
+    findStringBestMatch("Foo bar foobar foo", [/[Ff]oo/, /[Bb]ar/]),
+    {
+      match: /[Ff]oo/,
+      matchingScore: 9,
+    },
+  );
 });
 
 Deno.test("findStringBestMatch() - object candidates (with matchBy)", () => {

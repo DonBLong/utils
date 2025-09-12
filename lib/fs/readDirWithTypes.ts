@@ -32,7 +32,8 @@ export async function readDirWithTypes(
 ): Promise<Deno.DirEntry[]> {
   const valid = [];
   for await (const dirEntry of Deno.readDir(path)) {
-    if (isValidDirEntry(dirEntry, types)) valid.push(dirEntry);
+    if (types?.length && !isValidDirEntry(dirEntry, types)) continue;
+    valid.push(dirEntry);
   }
   return valid;
 }
