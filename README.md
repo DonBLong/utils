@@ -178,9 +178,9 @@ console.log(stringifyAll(obj));
 
 Utilities for working with file-system APIs.
 
-Reading from a directory with type-filter
-
 #### Usage:
+
+Reading from a directory with type-filter
 
 ```ts
 // Asynchronous
@@ -218,6 +218,8 @@ console.log(dirsOnly.every((entry) => entry.isDirectory)); // true
 
 Utilities for verifying the compatibility of object properties specifically
 and/or variable values in general.
+
+#### Usage:
 
 Non-nullability checking
 
