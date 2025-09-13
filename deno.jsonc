@@ -47,7 +47,7 @@
     "./types/value": "./lib/types/Value.ts"
   },
   "publish": {
-    "include": ["lib"]
+    "include": ["lib", "LICENSE", "README.md"]
   },
   "tasks": {
     "test": "deno test --coverage -R=tests/fs/dir"

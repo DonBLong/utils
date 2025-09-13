@@ -1,6 +1,6 @@
 /**
  * Utilities for verifying the compatibility of object properties
- * specifically and/or variable values generally.
+ * specifically and/or variable values in general.
  *
  * @example Non-nullability checking
  * ```ts

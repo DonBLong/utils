@@ -1,10 +1,11 @@
 /**
  * A collection of useful utility functions and types that help
  * carrying out some basic (but specific) JavaScript operations
- * and getting around some limitations in native ECMAScript methods
- * or in external libraries such as file-system APIs.
+ * and getting around some limitations in native ECMAScript methods,
+ * TypeScript generic types, or in other libraries such as file-system APIs.
  *
- * ## Arrays
+ * ## arrays
+ *
  * Sorting
  * ```ts
  * import { sort } from "@donb/utils/arrays/sort";
@@ -59,7 +60,8 @@
  * //   }
  * ```
  *
- * ## Numbers
+ * ## numbers
+ *
  * Padding
  * ```ts
  * import { toPadded } from "@donb/utils/numbers/to-padded";
@@ -74,7 +76,8 @@
  * console.log(toPadded(str, 3)); // "index 002 - title"
  * ```
  *
- * ## Strings
+ * ## strings
+ *
  * Character matching
  * ```ts
  * import { matchChars } from "@donb/utils/strings/match-chars";
@@ -115,7 +118,8 @@
  * // {"a":"100000000000000000000","b":"true","c":"function func() {}","d":"null","e":"20.3","f":{"id":"4"},"g":"bar","h":"Symbol(foobar)","i":"undefined"}
  * ```
  *
- * ## File System
+ * ## fs
+ *
  * Reading from a directory with type-filter
  * ```ts
  * // Asynchronous
@@ -144,7 +148,8 @@
  * console.log(dirsOnly.every((entry) => entry.isDirectory)); // true
  * ```
  *
- * ## Types
+ * ## propchecker
+ *
  * Non-nullability checking
  * ```ts
  * import { isNonNullable } from "@donb/utils/propchecker/is-non-nullable";
@@ -185,3 +190,4 @@ export * from "./fs/mod.ts";
 export * from "./numbers/mod.ts";
 export * from "./propchecker/mod.ts";
 export * from "./strings/mod.ts";
+export * from "./types/mod.ts";
