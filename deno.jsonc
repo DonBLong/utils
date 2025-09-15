@@ -50,6 +50,7 @@
     "include": ["lib", "LICENSE", "README.md"]
   },
   "tasks": {
-    "test": "deno test --coverage -R=tests/fs/dir"
+    "test": "deno test --coverage -R=tests/fs/dir",
+    "doc": "deno doc --html --name=@donb/utils ./lib/**/mod.ts"
   }
 }
