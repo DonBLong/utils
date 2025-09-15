@@ -28,6 +28,10 @@ import { findMaxDigitSequence } from "./findMaxDigitSequence.ts";
  * // [ 1, { id: 2 }, { id: 3 }, 4 ]
  * ```
  *
+ * @typeparam ElementType The type of the elements of the {@linkcode input} `Iterable`.
+ *
+ * @typeparam SorterType The return of the {@linkcode sortBy} callback `function`.
+ *
  * @param input The iterable to be sorted.
  *
  * @param sortBy A callback that is called on each element
@@ -36,10 +40,10 @@ import { findMaxDigitSequence } from "./findMaxDigitSequence.ts";
  *
  * @returns A new array containing the iterable's elements after sorting.
  */
-export function sort<T, S>(
-  input: Iterable<T>,
-  sortBy?: (element: T) => S,
-): T[] {
+export function sort<ElementType, SorterType>(
+  input: Iterable<ElementType>,
+  sortBy?: (element: ElementType) => SorterType,
+): ElementType[] {
   const maxLength = findMaxDigitSequence(stringifyAll(input))?.length;
   return [...input].toSorted((p, c) => {
     const [previous, current] = [p, c].map((e) =>
