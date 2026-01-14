@@ -4,53 +4,53 @@
   "license": "MIT",
   "exports": {
     // default
-    ".": "./lib/mod.ts",
+    ".": "./src/mod.ts",
     // arrays
-    "./arrays": "./lib/arrays/mod.ts",
-    "./arrays/best-match": "./lib/arrays/BestMatch.ts",
-    "./arrays/find-string-best-match": "./lib/arrays/findStringBestMatch.ts",
-    "./arrays/find-max-digit-sequence": "./lib/arrays/findMaxDigitSequence.ts",
-    "./arrays/match": "./lib/arrays/match.ts",
-    "./arrays/sort": "./lib/arrays/sort.ts",
+    "./arrays": "./src/arrays/mod.ts",
+    "./arrays/best-match": "./src/arrays/BestMatch.ts",
+    "./arrays/find-string-best-match": "./src/arrays/findStringBestMatch.ts",
+    "./arrays/find-max-digit-sequence": "./src/arrays/findMaxDigitSequence.ts",
+    "./arrays/match": "./src/arrays/match.ts",
+    "./arrays/sort": "./src/arrays/sort.ts",
     // fs
-    "./fs": "./lib/fs/mod.ts",
-    "./fs/file-extension": "./lib/fs/FileExtension.ts",
-    "./fs/is-valid-dir-entry": "./lib/fs/isValidDirEntry.ts",
-    "./fs/read-dir-sync-with-types": "./lib/fs/readDirSyncWithTypes.ts",
-    "./fs/read-dir-with-types": "./lib/fs/readDirWithTypes.ts",
+    "./fs": "./src/fs/mod.ts",
+    "./fs/file-extension": "./src/fs/FileExtension.ts",
+    "./fs/is-valid-dir-entry": "./src/fs/isValidDirEntry.ts",
+    "./fs/read-dir-sync-with-types": "./src/fs/readDirSyncWithTypes.ts",
+    "./fs/read-dir-with-types": "./src/fs/readDirWithTypes.ts",
     // numbers
-    "./numbers": "./lib/numbers/mod.ts",
-    "./numbers/to-padded": "./lib/numbers/toPadded.ts",
+    "./numbers": "./src/numbers/mod.ts",
+    "./numbers/to-padded": "./src/numbers/toPadded.ts",
     // propchecker
-    "./propchecker": "./lib/propchecker/mod.ts",
-    "./propchecker/is-non-nullable": "./lib/propchecker/isNonNullable.ts",
-    "./propchecker/is-of-type": "./lib/propchecker/isOfType.ts",
-    "./propchecker/property": "./lib/propchecker/Property.ts",
-    "./propchecker/property-params": "./lib/propchecker/PropertyParams.ts",
-    "./propchecker/property-required-type-error": "./lib/propchecker/PropertyRequiredTypeError.ts",
-    "./propchecker/property-type-error": "./lib/propchecker/PropertyTypeError.ts",
-    "./propchecker/value-found": "./lib/propchecker/ValueFound.ts",
+    "./propchecker": "./src/propchecker/mod.ts",
+    "./propchecker/is-non-nullable": "./src/propchecker/isNonNullable.ts",
+    "./propchecker/is-of-type": "./src/propchecker/isOfType.ts",
+    "./propchecker/property": "./src/propchecker/Property.ts",
+    "./propchecker/property-params": "./src/propchecker/PropertyParams.ts",
+    "./propchecker/property-required-type-error": "./src/propchecker/PropertyRequiredTypeError.ts",
+    "./propchecker/property-type-error": "./src/propchecker/PropertyTypeError.ts",
+    "./propchecker/value-found": "./src/propchecker/ValueFound.ts",
     // strings
-    "./strings": "./lib/strings/mod.ts",
-    "./strings/match-chars": "./lib/strings/matchChars.ts",
-    "./strings/match-chars-unique": "./lib/strings/matchCharsUnique.ts",
-    "./strings/match-substrings": "./lib/strings/matchSubstrings.ts",
-    "./strings/stringify-all": "./lib/strings/stringifyAll.ts",
+    "./strings": "./src/strings/mod.ts",
+    "./strings/match-chars": "./src/strings/matchChars.ts",
+    "./strings/match-chars-unique": "./src/strings/matchCharsUnique.ts",
+    "./strings/match-substrings": "./src/strings/matchSubstrings.ts",
+    "./strings/stringify-all": "./src/strings/stringifyAll.ts",
     // types
-    "./types": "./lib/types/mod.ts",
-    "./types/class": "./lib/types/Class.ts",
-    "./types/constructor": "./lib/types/Constructor.ts",
-    "./types/iterables-with-callbacks": "./lib/types/IterablesWithCallbacks.ts",
-    "./types/key": "./lib/types/Key.ts",
-    "./types/primitive-types": "./lib/types/PrimitiveTypes.ts",
-    "./types/type": "./lib/types/Type.ts",
-    "./types/value": "./lib/types/Value.ts"
+    "./types": "./src/types/mod.ts",
+    "./types/class": "./src/types/Class.ts",
+    "./types/constructor": "./src/types/Constructor.ts",
+    "./types/iterables-with-callbacks": "./src/types/IterablesWithCallbacks.ts",
+    "./types/key": "./src/types/Key.ts",
+    "./types/primitive-types": "./src/types/PrimitiveTypes.ts",
+    "./types/type": "./src/types/Type.ts",
+    "./types/value": "./src/types/Value.ts"
   },
   "publish": {
-    "include": ["lib", "LICENSE", "README.md"]
+    "include": ["src", "LICENSE", "README.md"]
   },
   "tasks": {
     "test": "deno test --coverage -R=tests/fs/dir",
-    "doc": "deno doc --html --name=@donb/utils ./lib/**/mod.ts"
+    "doc": "deno doc --html --name=@donb/utils ./src/**/mod.ts"
   }
 }
