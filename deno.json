@@ -3,25 +3,20 @@
   "version": "0.1.0",
   "license": "MIT",
   "exports": {
-    // default
     ".": "./src/mod.ts",
-    // arrays
     "./arrays": "./src/arrays/mod.ts",
     "./arrays/best-match": "./src/arrays/BestMatch.ts",
     "./arrays/find-string-best-match": "./src/arrays/findStringBestMatch.ts",
     "./arrays/find-max-digit-sequence": "./src/arrays/findMaxDigitSequence.ts",
     "./arrays/match": "./src/arrays/match.ts",
     "./arrays/sort": "./src/arrays/sort.ts",
-    // fs
     "./fs": "./src/fs/mod.ts",
     "./fs/file-extension": "./src/fs/FileExtension.ts",
     "./fs/is-valid-dir-entry": "./src/fs/isValidDirEntry.ts",
     "./fs/read-dir-sync-with-types": "./src/fs/readDirSyncWithTypes.ts",
     "./fs/read-dir-with-types": "./src/fs/readDirWithTypes.ts",
-    // numbers
     "./numbers": "./src/numbers/mod.ts",
     "./numbers/to-padded": "./src/numbers/toPadded.ts",
-    // propchecker
     "./propchecker": "./src/propchecker/mod.ts",
     "./propchecker/is-non-nullable": "./src/propchecker/isNonNullable.ts",
     "./propchecker/is-of-type": "./src/propchecker/isOfType.ts",
@@ -30,13 +25,11 @@
     "./propchecker/property-required-type-error": "./src/propchecker/PropertyRequiredTypeError.ts",
     "./propchecker/property-type-error": "./src/propchecker/PropertyTypeError.ts",
     "./propchecker/value-found": "./src/propchecker/ValueFound.ts",
-    // strings
     "./strings": "./src/strings/mod.ts",
     "./strings/match-chars": "./src/strings/matchChars.ts",
     "./strings/match-chars-unique": "./src/strings/matchCharsUnique.ts",
     "./strings/match-substrings": "./src/strings/matchSubstrings.ts",
     "./strings/stringify-all": "./src/strings/stringifyAll.ts",
-    // types
     "./types": "./src/types/mod.ts",
     "./types/class": "./src/types/Class.ts",
     "./types/constructor": "./src/types/Constructor.ts",
