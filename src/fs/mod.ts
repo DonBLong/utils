@@ -5,7 +5,7 @@
  * ```ts
  * // Asynchronous
  * import { readDirWithTypes } from "@donb/utils/fs/read-dir-with-types";
- * import { extname } from "jsr:@std/path/extname";
+ * import { extname } from "@std/path/extname";
  *
  * const dirEntries = await readDirWithTypes("/", [".ts", ".js"]);
  *
@@ -18,7 +18,7 @@
  * ```ts
  * // Synchronous
  * import { readDirSyncWithTypes } from "@donb/utils/fs/read-dir-sync-with-types";
- * import { extname } from "jsr:@std/path/extname";
+ * import { extname } from "@std/path/extname";
  *
  * const dirEntries = readDirSyncWithTypes("/", [".ts", ".js"]);
  *

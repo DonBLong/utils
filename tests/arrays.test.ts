@@ -1,28 +1,34 @@
-import { assertEquals } from "jsr:@std/assert@1.0.14/equals";
 import {
   findMaxDigitSequence,
   findStringBestMatch,
   match,
   sort,
 } from "@donb/utils/arrays";
+import { assertEquals } from "@std/assert/equals";
 
 // findStringBestMatch()
-Deno.test("findStringBestMatch() - string candidates (no matchBy) - input lengthier than candidate", () => {
-  assertEquals(findStringBestMatch("foobarfoobarfoo", ["foo", "bar"]), {
-    match: "foo",
-    matchingScore: 9,
-  });
-});
-
-Deno.test("findStringBestMatch() - string candidates (no matchBy) - input shorter than candidate", () => {
-  assertEquals(
-    findStringBestMatch("foo", ["foobarfoobarfoo", "barfoobarfoobar"]),
-    {
-      match: "foobarfoobarfoo",
+Deno.test(
+  "findStringBestMatch() - string candidates (no matchBy) - input lengthier than candidate",
+  () => {
+    assertEquals(findStringBestMatch("foobarfoobarfoo", ["foo", "bar"]), {
+      match: "foo",
       matchingScore: 9,
-    },
-  );
-});
+    });
+  },
+);
+
+Deno.test(
+  "findStringBestMatch() - string candidates (no matchBy) - input shorter than candidate",
+  () => {
+    assertEquals(
+      findStringBestMatch("foo", ["foobarfoobarfoo", "barfoobarfoobar"]),
+      {
+        match: "foobarfoobarfoo",
+        matchingScore: 9,
+      },
+    );
+  },
+);
 
 Deno.test("findStringBestMatch() - RegExp candidates (no matchBy)", () => {
   assertEquals(
@@ -39,7 +45,7 @@ Deno.test("findStringBestMatch() - object candidates (with matchBy)", () => {
     findStringBestMatch(
       "foobarfoobarfoo",
       [{ name: "foo" }, { name: "bar" }],
-      (candidate) => candidate.name,
+      candidate => candidate.name,
     ),
     {
       match: { name: "foo" },
@@ -65,7 +71,11 @@ Deno.test("findMaxDigitSequence()", () => {
 Deno.test("match() - string iterables (no matchBys)", () => {
   assertEquals(
     match(["abbbc", "baaac", "acccb"], ["a", "b", "c", "cccb"]),
-    new Map([["abbbc", "b"], ["baaac", "a"], ["acccb", "cccb"]]),
+    new Map([
+      ["abbbc", "b"],
+      ["baaac", "a"],
+      ["acccb", "cccb"],
+    ]),
   );
 });
 
@@ -74,11 +84,11 @@ Deno.test("match() - object iterables (with matchBys)", () => {
     match(
       {
         iterable: [{ inputProp: "abbbc" }, { inputProp: "baaac" }],
-        callback: (input) => input.inputProp,
+        callback: input => input.inputProp,
       },
       {
         iterable: [{ candidateProp: "a" }, { candidateProp: "b" }],
-        callback: (candidate) => candidate.candidateProp,
+        callback: candidate => candidate.candidateProp,
       },
     ),
     new Map([
@@ -90,17 +100,18 @@ Deno.test("match() - object iterables (with matchBys)", () => {
 
 // sort()
 Deno.test("sort() - mix iterable (no sortBy)", () => {
-  assertEquals(
-    sort([{ id: 3 }, 4, { id: 2 }, 1]),
-    [1, 4, { id: 2 }, { id: 3 }],
-  );
+  assertEquals(sort([{ id: 3 }, 4, { id: 2 }, 1]), [
+    1,
+    4,
+    { id: 2 },
+    { id: 3 },
+  ]);
 });
 
 Deno.test("sort() - mix iterable (with sortBy)", () => {
   assertEquals(
-    sort(
-      [{ id: 3 }, 4, { id: 2 }, 1],
-      (element) => typeof element === "number" ? element : element.id,
+    sort([{ id: 3 }, 4, { id: 2 }, 1], element =>
+      typeof element === "number" ? element : element.id,
     ),
     [1, { id: 2 }, { id: 3 }, 4],
   );

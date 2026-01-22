@@ -1,10 +1,10 @@
-import { assertEquals } from "jsr:@std/assert@1.0.14/equals";
 import {
   matchChars,
   matchCharsUnique,
   matchSubstrings,
   stringifyAll,
 } from "@donb/utils/strings";
+import { assertEquals } from "@std/assert/equals";
 
 // matchChars()
 Deno.test("matchChars()", () => {
@@ -22,9 +22,7 @@ Deno.test("matchSubstrings()", () => {
     "aaa",
     " ccc ",
   ]);
-  assertEquals(matchSubstrings("aacdf", "bacde"), [
-    "acd",
-  ]);
+  assertEquals(matchSubstrings("aacdf", "bacde"), ["acd"]);
 });
 
 // stringifyAll()
@@ -37,7 +35,10 @@ Deno.test("stringifyAll() - boolean", () => {
 });
 
 Deno.test("stringifyAll() - function", () => {
-  assertEquals(stringifyAll(function func() {}), `"function func() {}"`);
+  assertEquals(
+    stringifyAll(function func() {}),
+    `"function func() {}"`,
+  );
 });
 
 Deno.test("stringifyAll() - null", () => {

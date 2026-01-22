@@ -1,4 +1,4 @@
-import { extname } from "jsr:@std/path@^1.1.2/extname";
+import { extname } from "@std/path/extname";
 import type { FileExtension } from "./FileExtension.ts";
 /**
  * Checks if a `Deno.DirEntry` object belongs to a given {@linkcode types} list.
@@ -27,7 +27,8 @@ export function isValidDirEntry(
   dirEntry: Deno.DirEntry,
   types: (FileExtension | "directory")[],
 ): boolean {
-  return (dirEntry.isDirectory && types.includes("directory")) ||
-    (dirEntry.isFile &&
-      types.includes(extname(dirEntry.name) as FileExtension));
+  return (
+    (dirEntry.isDirectory && types.includes("directory")) ||
+    (dirEntry.isFile && types.includes(extname(dirEntry.name) as FileExtension))
+  );
 }

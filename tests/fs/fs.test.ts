@@ -1,9 +1,9 @@
-import { assertEquals } from "jsr:@std/assert@1.0.14/equals";
 import {
   isValidDirEntry,
   readDirSyncWithTypes,
   readDirWithTypes,
 } from "@donb/utils/fs";
+import { assertEquals } from "@std/assert/equals";
 
 // isValidDirEntry()
 Deno.test("isValidDirEntry()", () => {
@@ -28,17 +28,20 @@ if (readPermession.state === "granted") {
   Deno.test("readDirSyncWithTypes()", () => {
     assertEquals(
       readDirSyncWithTypes("./tests/fs/dir", [".txt", "directory"]),
-      [{
-        name: "file01.txt",
-        isDirectory: false,
-        isFile: true,
-        isSymlink: false,
-      }, {
-        name: "subDir",
-        isDirectory: true,
-        isFile: false,
-        isSymlink: false,
-      }],
+      [
+        {
+          name: "file01.txt",
+          isDirectory: false,
+          isFile: true,
+          isSymlink: false,
+        },
+        {
+          name: "subDir",
+          isDirectory: true,
+          isFile: false,
+          isSymlink: false,
+        },
+      ],
     );
   });
 
@@ -46,17 +49,20 @@ if (readPermession.state === "granted") {
   Deno.test("readDirWithTypes()", async () => {
     assertEquals(
       await readDirWithTypes("./tests/fs/dir", [".txt", "directory"]),
-      [{
-        name: "file01.txt",
-        isDirectory: false,
-        isFile: true,
-        isSymlink: false,
-      }, {
-        name: "subDir",
-        isDirectory: true,
-        isFile: false,
-        isSymlink: false,
-      }],
+      [
+        {
+          name: "file01.txt",
+          isDirectory: false,
+          isFile: true,
+          isSymlink: false,
+        },
+        {
+          name: "subDir",
+          isDirectory: true,
+          isFile: false,
+          isSymlink: false,
+        },
+      ],
     );
   });
 }

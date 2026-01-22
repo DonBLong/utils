@@ -9,7 +9,7 @@ import type { FileExtension } from "./FileExtension.ts";
  * @example Usage
  * ```ts
  * import { readDirSyncWithTypes } from "@donb/utils/fs/read-dir-sync-with-types";
- * import { extname } from "jsr:@std/path/extname";
+ * import { extname } from "@std/path/extname";
  *
  * const dirEntries = readDirSyncWithTypes("/", [".ts", ".js"]);
  *

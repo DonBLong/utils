@@ -1,15 +1,13 @@
 import {
-  assertEquals,
-  assertInstanceOf,
-  assertThrows,
-} from "jsr:@std/assert@1.0.14";
-import {
   isNonNullable,
   isOfType,
   Property,
   PropertyRequiredTypeError,
   PropertyTypeError,
 } from "@donb/utils/propchecker";
+import { assertEquals } from "@std/assert/equals";
+import { assertInstanceOf } from "@std/assert/instance-of";
+import { assertThrows } from "@std/assert/throws";
 
 // isNonNullable
 Deno.test("isNonNullable() - boolean", () => {
@@ -79,26 +77,15 @@ Deno.test("class Property", () => {
     callerClass: ClassOfFunc,
   });
 
-  assertEquals(
-    prop.objectType,
-    `{"prop1":"1","prop2":2}`,
-  );
-  assertEquals(
-    prop.key,
-    "prop1",
-  );
-  assertEquals(
-    prop.type,
-    "number | bigint",
-  );
-  assertEquals(
-    prop.caller,
-    "ClassOfFunc.func",
-  );
-  assertEquals(
-    prop.valueFound,
-    { value: obj.prop1, type: "string", constructor: "String" },
-  );
+  assertEquals(prop.objectType, `{"prop1":"1","prop2":2}`);
+  assertEquals(prop.key, "prop1");
+  assertEquals(prop.type, "number | bigint");
+  assertEquals(prop.caller, "ClassOfFunc.func");
+  assertEquals(prop.valueFound, {
+    value: obj.prop1,
+    type: "string",
+    constructor: "String",
+  });
   prop.caller = { caller: "newFunc", callerClass: "NewClassOfFunc" };
   assertEquals(prop.caller, "NewClassOfFunc.newFunc");
   prop.type = Number;

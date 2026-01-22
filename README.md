@@ -23,12 +23,6 @@ Import Symbol
 import * as utils from "@donb/utils";
 ```
 
-Import directly with a jsr specifier
-
-```ts
-import * as utils from "jsr:@donb/utils";
-```
-
 ---
 
 ## Exported sub-modules
@@ -60,9 +54,8 @@ import { sort } from "@donb/utils/arrays/sort";
 const iterable = [{ id: 3 }, 4, { id: 2 }, 1];
 
 console.log(
-  sort(
-    iterable,
-    (element) => typeof element === "number" ? element : element.id,
+  sort(iterable, element =>
+    typeof element === "number" ? element : element.id,
   ),
 );
 // [ 1, { id: 2 }, { id: 3 }, 4 ]
@@ -89,13 +82,16 @@ const inputs = [{ inputProp: "abbbc" }, { inputProp: "baaac" }];
 const candidates = [{ candidateProp: "a" }, { candidateProp: "b" }];
 
 console.log(
-  match({
-    iterable: inputs,
-    callback: (input) => input.inputProp,
-  }, {
-    iterable: candidates,
-    callback: (candidate) => candidate.candidateProp,
-  }),
+  match(
+    {
+      iterable: inputs,
+      callback: input => input.inputProp,
+    },
+    {
+      iterable: candidates,
+      callback: candidate => candidate.candidateProp,
+    },
+  ),
 );
 //   Map(2) {
 //     { inputProp: "abbbc" } => { candidateProp: "b" },
@@ -163,7 +159,7 @@ const obj = {
   b: true,
   c: function func() {},
   d: null,
-  e: 20.300,
+  e: 20.3,
   f: { id: 4 },
   g: "bar",
   h: Symbol("foobar"),
@@ -185,33 +181,33 @@ Reading from a directory with type-filter
 ```ts
 // Asynchronous
 import { readDirWithTypes } from "@donb/utils/fs/read-dir-with-types";
-import { extname } from "jsr:@std/path/extname";
+import { extname } from "@std/path/extname";
 
 const dirEntries = await readDirWithTypes("/", [".ts", ".js"]);
 
 console.log(
-  dirEntries.every((entry) => [".ts", ".js"].includes(extname(entry.name))),
+  dirEntries.every(entry => [".ts", ".js"].includes(extname(entry.name))),
 ); // true
 
 const dirsOnly = await readDirWithTypes("/", ["directory"]);
 
-console.log(dirsOnly.every((entry) => entry.isDirectory)); // true
+console.log(dirsOnly.every(entry => entry.isDirectory)); // true
 ```
 
 ```ts
 // Synchronous
 import { readDirSyncWithTypes } from "@donb/utils/fs/read-dir-sync-with-types";
-import { extname } from "jsr:@std/path/extname";
+import { extname } from "@std/path/extname";
 
 const dirEntries = readDirSyncWithTypes("/", [".ts", ".js"]);
 
 console.log(
-  dirEntries.every((entry) => [".ts", ".js"].includes(extname(entry.name))),
+  dirEntries.every(entry => [".ts", ".js"].includes(extname(entry.name))),
 ); // true
 
 const dirsOnly = readDirSyncWithTypes("/", ["directory"]);
 
-console.log(dirsOnly.every((entry) => entry.isDirectory)); // true
+console.log(dirsOnly.every(entry => entry.isDirectory)); // true
 ```
 
 ### [propchecker](https://jsr.io/@donb/utils/doc/propchecker)
