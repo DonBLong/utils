@@ -1,0 +1,16 @@
+{
+  "conventionalCommits.scopes": [
+    "arrays",
+    "fs",
+    "numbers",
+    "propchecker",
+    "strings",
+    "types"
+  ],
+  "deno.enable": true,
+  "editor.defaultFormatter": "denoland.vscode-deno",
+  "editor.formatOnSave": true,
+  "json.schemaDownload.trustedDomains": {
+    "https://raw.githubusercontent.com/denoland/deno/main/cli/schemas/": true
+  }
+}
